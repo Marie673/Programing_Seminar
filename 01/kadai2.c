@@ -1,11 +1,10 @@
-//////////////////////////////////////////////////////////////
-// Created by okazaki on 2021/04/21.
+//////////////////////////////////////////////////////////
+// Created by okako on 2021/04/23.
 //
-//(1) ./a.out file1 file2 のようにコマンドラインから実行すると、
-//file1の内容をコピーして、file2という新しいファイルを作成する。
-//ただしfile1の内容はテキストのみを仮定してよい。
-//
-/////////////////////////////////////////////////////////////
+//(2) file1が開けない場合、あるいはfile2が開けない場合、あるいは
+//filie1とfile2が全く同じ文字列の場合、標準エラー出力(stderr)に
+//エラーを表示して終了する。
+/////////////////////////////////////////////////////////
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -29,7 +28,7 @@ int main(int argc, char **argv){
         exit(1);
     }
 
-    target_fp = fopen(target_file_name, "w");
+    target_fp = fopen(target_file_name, "rw");
     if(target_fp == 0){
         fprintf(stderr, "Couldn't open the file: %s\n", target_file_name);
         exit(1);
