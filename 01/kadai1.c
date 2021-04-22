@@ -16,20 +16,26 @@ int main(int argc, char **argv){
     }
 
     char *original_file_name = NULL, *target_file_name = NULL;
-    strcpy(original_file_name, argv[1]);
-    strcpy(target_file_name, argv[2]);
+    original_file_name = argv[1];
+    target_file_name = argv[2];
 
     original_fp = fopen(original_file_name, "r");
     if(original_fp == 0){
-        fprintf(stderr, "original file is error\n");
+        fprintf(stderr, "Couldn't open the file: %s\n", original_file_name);
         exit(1);
     }
     target_fp = fopen(target_file_name, "r");
     if(target_fp != 0){
-        fprintf(stderr, "target file exist\n");
+        fprintf(stderr, "Target file exist\n");
+        exit(1);
+    }
+    fclose(target_fp);
+    target_fp = fopen(target_file_name, "w");
+    if(target_fp == 0){
+        fprintf(stderr, "Couldn't open the file: %s\n", target_file_name);
         exit(1);
     }
 
 
-
+    return 0;
 }
