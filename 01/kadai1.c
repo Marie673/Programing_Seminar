@@ -4,7 +4,6 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 
 int main(int argc, char **argv){
     FILE *original_fp;
@@ -36,6 +35,16 @@ int main(int argc, char **argv){
         exit(1);
     }
 
+    int ch;
+    while((ch = fgetc(original_fp)) != EOF){
+        if(fputc(ch, target_fp) == EOF){
+            fprintf(stderr, "copy error\n");
+            exit(1);
+        }
+    }
+
+    fclose(original_fp);
+    fclose(target_fp);
 
     return 0;
 }
