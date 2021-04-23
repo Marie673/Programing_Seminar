@@ -10,19 +10,37 @@
 #include <stdlib.h>
 #include <string.h>
 #include <sys/stat.h>
+#include <unistd.h>
+
+#define MAX_BUF_SIZE 256
+
+int b_Flag = 0;
 
 int main(int argc, char **argv){
     FILE *original_fp;
     FILE *target_fp;
 
-    if(argc != 3){
+    int opt_ch;
+    while((opt_ch = getopt(argc, argv, "b")) != -1){
+        switch (opt_ch) {
+            case 'b':
+                b_Flag = 1;
+                break;
+            default:
+                fprintf(stderr, "Couldn't understand option\n");
+                exit(1);
+        }
+    }
+    argc -= optind;
+    argv += optind;
+
+    if(argc != 2){
         fprintf(stderr, "Argument error\n");
         exit(1);
     }
-
     char *original_file_name = NULL, *target_file_name = NULL;
-    original_file_name = argv[1];
-    target_file_name = argv[2];
+    original_file_name = (--argc, *argv++);
+    target_file_name = (--argc, *argv);
 
     if(strcmp(original_file_name, target_file_name) == 0){
         fprintf(stderr, "the same File Name cannot be specified.\n");
@@ -52,10 +70,26 @@ int main(int argc, char **argv){
     }
 
     int ch;
-    while((ch = fgetc(original_fp)) != EOF){
-        if(fputc(ch, target_fp) == EOF){
-            fprintf(stderr, "copy error\n");
-            exit(1);
+    if(b_Flag == 1) {
+        char buf[MAX_BUF_SIZE];
+        {
+            int flag = 0;
+            while (fgets(buf, MAX_BUF_SIZE, original_fp) != NULL) {
+                if(flag == 0) {
+                    if (*buf == '\n')
+                        flag = 1;
+                    continue;
+                }
+                fprintf(target_fp, "%s", buf);
+            }
+        }
+    }
+    else {
+        while ((ch = fgetc(original_fp)) != EOF) {
+            if (fputc(ch, target_fp) == EOF) {
+                fprintf(stderr, "copy error\n");
+                exit(1);
+            }
         }
     }
 
