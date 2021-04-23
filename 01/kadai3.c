@@ -1,6 +1,9 @@
 //
 // Created by okako on 2021/04/23.
 //
+//(3) file2がすでに存在してファイルである場合、上書きを避けるため
+//標準エラー出力(stderr)にエラーを表示して終了する。
+//※たとえばstat()関数を利用
 
 #include <stdio.h>
 #include <stdlib.h>
