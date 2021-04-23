@@ -8,6 +8,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 int main(int argc, char **argv){
     FILE *original_fp;
@@ -22,14 +23,17 @@ int main(int argc, char **argv){
     original_file_name = argv[1];
     target_file_name = argv[2];
 
-    original_fp = fopen(original_file_name, "r");
-    if(original_fp == 0){
+    if(strcpy(original_file_name, target_file_name) == 0){
+        fprintf(stderr, "They are same name\n");
+        exit(1);
+    }
+
+    if((original_fp = fopen(original_file_name, "r")) == 0){
         fprintf(stderr, "Couldn't open the file: %s\n", original_file_name);
         exit(1);
     }
 
-    target_fp = fopen(target_file_name, "rw");
-    if(target_fp == 0){
+    if((target_fp = fopen(target_file_name, "w")) == 0){
         fprintf(stderr, "Couldn't open the file: %s\n", target_file_name);
         exit(1);
     }
