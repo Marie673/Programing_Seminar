@@ -8,6 +8,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <sys/stat.h>
 
 int main(int argc, char **argv){
     FILE *original_fp;
@@ -32,6 +33,12 @@ int main(int argc, char **argv){
         exit(1);
     }
 
+
+    struct stat stat_buf;
+    if(stat(target_file_name, &stat_buf) == 0){
+        fprintf(stderr, "[%s] is existing\n", target_file_name);
+        exit(1);
+    }
     if((target_fp = fopen(target_file_name, "w")) == 0){
         fprintf(stderr, "Couldn't open the file: %s\n", target_file_name);
         exit(1);
