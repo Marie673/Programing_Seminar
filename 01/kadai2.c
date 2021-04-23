@@ -23,8 +23,8 @@ int main(int argc, char **argv){
     original_file_name = argv[1];
     target_file_name = argv[2];
 
-    if(strcpy(original_file_name, target_file_name) == 0){
-        fprintf(stderr, "They are same name\n");
+    if(strcmp(original_file_name, target_file_name) == 0){
+        fprintf(stderr, "the same File Name cannot be specified.\n");
         exit(1);
     }
 
