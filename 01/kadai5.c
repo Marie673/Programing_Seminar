@@ -58,6 +58,10 @@ int main(int argc, char **argv){
         if (S_ISDIR(stat_buf.st_mode)) {
             strcat(target_file_name, "/");
             strcat(target_file_name, original_file_name);
+            if(stat(target_file_name, &stat_buf) == 0){
+                fprintf(stderr, "[%s] is existing\n", target_file_name);
+                exit(1);
+            }
         }
         else if(S_ISREG(stat_buf.st_mode)){
             fprintf(stderr, "[%s] is existing\n", target_file_name);
