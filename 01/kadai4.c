@@ -40,7 +40,8 @@ int main(int argc, char **argv){
     struct stat stat_buf;
     if(stat(target_file_name, &stat_buf) == 0) {
         if (S_ISDIR(stat_buf.st_mode)) {
-            sprintf(target_file_name, "%s/%s", target_file_name, original_file_name);
+            strcat(target_file_name, "/");
+            strcat(target_file_name, original_file_name);
         }
         else if(S_ISREG(stat_buf.st_mode)){
             fprintf(stderr, "[%s] is existing\n", target_file_name);
