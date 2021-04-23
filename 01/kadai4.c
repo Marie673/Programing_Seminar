@@ -36,11 +36,16 @@ int main(int argc, char **argv){
         exit(1);
     }
 
-
+    // target fileのステータスに関する記述
     struct stat stat_buf;
-    if(stat(target_file_name, &stat_buf) == 0){
-        fprintf(stderr, "[%s] is existing\n", target_file_name);
-        exit(1);
+    if(stat(target_file_name, &stat_buf) == 0) {
+        if (S_ISDIR(stat_buf.st_mode)) {
+            sprintf(target_file_name, "%s/%s", target_file_name, original_file_name);
+        }
+        else if(S_ISREG(stat_buf.st_mode)){
+            fprintf(stderr, "[%s] is existing\n", target_file_name);
+            exit(1);
+        }
     }
     if((target_fp = fopen(target_file_name, "w")) == 0){
         fprintf(stderr, "Couldn't open the file: %s\n", target_file_name);
