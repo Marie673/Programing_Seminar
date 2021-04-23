@@ -4,6 +4,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/Programing.dir/01/kadai3.c.obj"
   "CMakeFiles/Programing.dir/01/kadai4.c.obj"
   "CMakeFiles/Programing.dir/01/kadai5.c.obj"
+  "CMakeFiles/Programing.dir/01/kadai6.c.obj"
   "CMakeFiles/Programing.dir/pre/kadai1.c.obj"
   "CMakeFiles/Programing.dir/pre/kadai2.c.obj"
   "CMakeFiles/Programing.dir/pre/kadai3.c.obj"
