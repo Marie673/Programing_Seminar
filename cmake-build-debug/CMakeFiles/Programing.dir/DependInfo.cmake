@@ -8,6 +8,7 @@ set(CMAKE_DEPENDS_CHECK_C
   "C:/Users/okako/Dropbox/Seminar/Programing/01/kadai2.c" "C:/Users/okako/Dropbox/Seminar/Programing/cmake-build-debug/CMakeFiles/Programing.dir/01/kadai2.c.obj"
   "C:/Users/okako/Dropbox/Seminar/Programing/01/kadai3.c" "C:/Users/okako/Dropbox/Seminar/Programing/cmake-build-debug/CMakeFiles/Programing.dir/01/kadai3.c.obj"
   "C:/Users/okako/Dropbox/Seminar/Programing/01/kadai4.c" "C:/Users/okako/Dropbox/Seminar/Programing/cmake-build-debug/CMakeFiles/Programing.dir/01/kadai4.c.obj"
+  "C:/Users/okako/Dropbox/Seminar/Programing/01/kadai5.c" "C:/Users/okako/Dropbox/Seminar/Programing/cmake-build-debug/CMakeFiles/Programing.dir/01/kadai5.c.obj"
   "C:/Users/okako/Dropbox/Seminar/Programing/pre/kadai1.c" "C:/Users/okako/Dropbox/Seminar/Programing/cmake-build-debug/CMakeFiles/Programing.dir/pre/kadai1.c.obj"
   "C:/Users/okako/Dropbox/Seminar/Programing/pre/kadai2.c" "C:/Users/okako/Dropbox/Seminar/Programing/cmake-build-debug/CMakeFiles/Programing.dir/pre/kadai2.c.obj"
   "C:/Users/okako/Dropbox/Seminar/Programing/pre/kadai3.c" "C:/Users/okako/Dropbox/Seminar/Programing/cmake-build-debug/CMakeFiles/Programing.dir/pre/kadai3.c.obj"
