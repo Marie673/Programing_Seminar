@@ -10,6 +10,7 @@
 #include <string.h>
 #include <sys/stat.h>
 #include <unistd.h>
+#include <utime.h>
 
 #define MAX_BUF_SIZE 256
 
@@ -51,18 +52,18 @@ int main(int argc, char **argv){
         exit(1);
     }
 
+    struct stat stat_buf[2];
     // target fileのステータスに関する記述
-    struct stat stat_buf;
-    if(stat(target_file_name, &stat_buf) == 0) {
-        if (S_ISDIR(stat_buf.st_mode)) {
+    if(stat(target_file_name, &stat_buf[0]) == 0) {
+        if (S_ISDIR(stat_buf[0].st_mode)) {
             strcat(target_file_name, "/");
             strcat(target_file_name, original_file_name);
-            if(stat(target_file_name, &stat_buf) == 0){
+            if(stat(target_file_name, &stat_buf[0]) == 0){
                 fprintf(stderr, "[%s] is existing\n", target_file_name);
                 exit(1);
             }
         }
-        else if(S_ISREG(stat_buf.st_mode)){
+        else if(S_ISREG(stat_buf[0].st_mode)){
             fprintf(stderr, "[%s] is existing\n", target_file_name);
             exit(1);
         }
@@ -89,6 +90,18 @@ int main(int argc, char **argv){
 
     fclose(original_fp);
     fclose(target_fp);
+
+    ///////////////////////////////////////////////
+    // 課題8追記部分
+    stat(original_file_name, &stat_buf[1]);
+    struct utimbuf u_buf;
+    u_buf.modtime = stat_buf[1].st_mtime;
+    u_buf.actime = stat_buf[1].st_atime;
+    if(utime(target_file_name, &u_buf) != 0){
+        perror("utime error");
+        exit(1);
+    }
+    ///////////////////////////////////////////////
 
     return 0;
 }
