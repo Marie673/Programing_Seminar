@@ -76,24 +76,15 @@ int main(int argc, char **argv){
     int ch;
     if(b_Flag == 1) {
         char buf[MAX_BUF_SIZE];
-        {
-            int flag = 0;
-            while (fgets(buf, MAX_BUF_SIZE, original_fp) != NULL) {
-                if(flag == 0) {
-                    if (*buf == '\n')
-                        flag = 1;
-                    continue;
-                }
-                fprintf(target_fp, "%s", buf);
-            }
+        while (fgets(buf, MAX_BUF_SIZE, original_fp) != NULL) {
+            if (*buf == '\n')
+                break;
         }
     }
-    else {
-        while ((ch = fgetc(original_fp)) != EOF) {
-            if (fputc(ch, target_fp) == EOF) {
-                fprintf(stderr, "copy error\n");
-                exit(1);
-            }
+    while ((ch = fgetc(original_fp)) != EOF) {
+        if (fputc(ch, target_fp) == EOF) {
+            fprintf(stderr, "copy error\n");
+            exit(1);
         }
     }
 

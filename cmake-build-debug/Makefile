@@ -303,6 +303,33 @@ Programing/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Programing.dir\build.make CMakeFiles/Programing.dir/01/kadai6.c.s
 .PHONY : 01/kadai6.c.s
 
+01/kadai7.obj: 01/kadai7.c.obj
+
+.PHONY : 01/kadai7.obj
+
+# target to build an object file
+01/kadai7.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Programing.dir\build.make CMakeFiles/Programing.dir/01/kadai7.c.obj
+.PHONY : 01/kadai7.c.obj
+
+01/kadai7.i: 01/kadai7.c.i
+
+.PHONY : 01/kadai7.i
+
+# target to preprocess a source file
+01/kadai7.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Programing.dir\build.make CMakeFiles/Programing.dir/01/kadai7.c.i
+.PHONY : 01/kadai7.c.i
+
+01/kadai7.s: 01/kadai7.c.s
+
+.PHONY : 01/kadai7.s
+
+# target to generate assembly for a file
+01/kadai7.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Programing.dir\build.make CMakeFiles/Programing.dir/01/kadai7.c.s
+.PHONY : 01/kadai7.c.s
+
 pre/kadai1.obj: pre/kadai1.c.obj
 
 .PHONY : pre/kadai1.obj
@@ -573,6 +600,9 @@ help:
 	@echo ... 01/kadai6.obj
 	@echo ... 01/kadai6.i
 	@echo ... 01/kadai6.s
+	@echo ... 01/kadai7.obj
+	@echo ... 01/kadai7.i
+	@echo ... 01/kadai7.s
 	@echo ... pre/kadai1.obj
 	@echo ... pre/kadai1.i
 	@echo ... pre/kadai1.s
