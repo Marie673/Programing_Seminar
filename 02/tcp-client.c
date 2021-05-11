@@ -44,13 +44,14 @@ int main(int argc, char **argv)
         exit(1);
     }
 
-    snprintf(buf, sizeof(buf), "message from IPv4 client");
+    printf("type a one-line :\n");
+    fgets(buf, sizeof(buf), stdin);
     write(sock, buf, strnlen(buf, sizeof(buf)));
+    printf("send to server      : %s\n", buf);
 
     memset(buf, 0, sizeof(buf));
     n = (int) read(sock, buf, sizeof(buf));
-
-    printf("n=%d, %s\n", n, buf);
+    printf("receive from server : %s\n", buf);
 
     close(sock);
 

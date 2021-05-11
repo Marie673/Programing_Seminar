@@ -55,14 +55,12 @@ int main(int argc, char **argv)
     printf("connection from : %s, port = %d\n", addr_str, ntohs(client.sin_port));
 
     memset(buf, 0, sizeof(buf));
-    n = (int) read(sock, buf, sizeof(buf));
-    printf("n = %d\nmessage : %s\n", n, buf);
+    read(sock, buf, sizeof(buf));
+    printf("message : %s\n", buf);
 
-    snprintf(buf, sizeof(buf), "message from IPv4 server");
     n = (int) write(sock, buf, strnlen(buf, sizeof(buf)));
 
     close(sock);
-
     close(sock0);
 
     return 0;
