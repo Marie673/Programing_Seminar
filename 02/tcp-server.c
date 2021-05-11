@@ -11,7 +11,20 @@
 #include <netinet/in.h>
 #include <arpa/inet.h>
 
-int main(){
+int main(int argc, char **argv)
+{
+    char *end_buf;
+
+    argc -= optind;
+    argv += optind;
+    if(argc != 1){
+        fprintf(stderr, "missing host and port\n");
+        exit(1);
+    }
+
+    long port;
+    port = strtol(*argv, &end_buf, 10);
+
     int sock0;
     struct sockaddr_in addr;
     struct sockaddr_in client;
@@ -24,7 +37,7 @@ int main(){
     sock0 = socket(AF_INET, SOCK_STREAM, 0);
 
     addr.sin_family = AF_INET;
-    addr.sin_port = htons(54321);
+    addr.sin_port = htons(port);
     addr.sin_addr.s_addr = INADDR_ANY;
 
     if(bind(sock0, (struct sockaddr*) &addr, sizeof(addr)) != 0){
