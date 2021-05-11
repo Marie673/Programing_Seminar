@@ -103,6 +103,9 @@
 		<Unit filename="/home/marie/Project/Programing_Seminar/02/tcp-client.c">
 			<Option target="Programing"/>
 		</Unit>
+		<Unit filename="/home/marie/Project/Programing_Seminar/02/tcp-server.c">
+			<Option target="Programing"/>
+		</Unit>
 		<Unit filename="/home/marie/Project/Programing_Seminar/pre/kadai1.c">
 			<Option target="Programing"/>
 		</Unit>

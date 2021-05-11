@@ -385,6 +385,33 @@ Programing/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Programing.dir/build.make CMakeFiles/Programing.dir/02/tcp-client.c.s
 .PHONY : 02/tcp-client.c.s
 
+02/tcp-server.o: 02/tcp-server.c.o
+
+.PHONY : 02/tcp-server.o
+
+# target to build an object file
+02/tcp-server.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Programing.dir/build.make CMakeFiles/Programing.dir/02/tcp-server.c.o
+.PHONY : 02/tcp-server.c.o
+
+02/tcp-server.i: 02/tcp-server.c.i
+
+.PHONY : 02/tcp-server.i
+
+# target to preprocess a source file
+02/tcp-server.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Programing.dir/build.make CMakeFiles/Programing.dir/02/tcp-server.c.i
+.PHONY : 02/tcp-server.c.i
+
+02/tcp-server.s: 02/tcp-server.c.s
+
+.PHONY : 02/tcp-server.s
+
+# target to generate assembly for a file
+02/tcp-server.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Programing.dir/build.make CMakeFiles/Programing.dir/02/tcp-server.c.s
+.PHONY : 02/tcp-server.c.s
+
 pre/kadai1.o: pre/kadai1.c.o
 
 .PHONY : pre/kadai1.o
@@ -664,6 +691,9 @@ help:
 	@echo "... 02/tcp-client.o"
 	@echo "... 02/tcp-client.i"
 	@echo "... 02/tcp-client.s"
+	@echo "... 02/tcp-server.o"
+	@echo "... 02/tcp-server.i"
+	@echo "... 02/tcp-server.s"
 	@echo "... pre/kadai1.o"
 	@echo "... pre/kadai1.i"
 	@echo "... pre/kadai1.s"
