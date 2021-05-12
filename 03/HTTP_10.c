@@ -11,7 +11,7 @@
 #include <arpa/inet.h>
 #include <sys/stat.h>
 
-#define SOCK_BUF_SIZE 32
+#define SOCK_BUF_SIZE 64
 #define PATH_LEN 128
 
 int main(int argc, char **argv)
@@ -78,8 +78,17 @@ int main(int argc, char **argv)
 
     FILE *save_fp;
     save_fp = fopen(file_path, "w");
+    char buf[SOCK_BUF_SIZE];
+
+    while(fgets(buf, sizeof(buf), read_fp) != NULL){
+        if(strcmp(buf, "\r\n") == 0){
+            printf("test");
+            break;
+        }
+    }
+
     while(1){
-        char buf[SOCK_BUF_SIZE];
+        memset(buf, 0, sizeof(buf));
         size_t read_size;
         read_size = fread(buf, sizeof(char), sizeof(buf) / sizeof(char), read_fp);
         if(read_size == 0) {
