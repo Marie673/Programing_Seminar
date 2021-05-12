@@ -15,7 +15,7 @@ int main(int argc, char **argv)
 {
     char *end_buf;
 
-    argc -= optind;
+/*    argc -= optind;
     argv += optind;
     if(argc != 1){
         fprintf(stderr, "missing host and port\n");
@@ -24,6 +24,14 @@ int main(int argc, char **argv)
 
     long port;
     port = strtol(*argv, &end_buf, 10);
+    */
+    if(argc != 2){
+        fprintf(stderr, "missing host and port\n");
+        exit(1);
+    }
+
+    long port;
+    port = strtol(*++argv, &end_buf, 10);
 
     int sock0;
     struct sockaddr_in addr;
