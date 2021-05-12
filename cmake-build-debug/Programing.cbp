@@ -8,132 +8,137 @@
 		<Option virtualFolders="CMake Files\;"/>
 		<Build>
 			<Target title="all">
-				<Option working_dir="/home/marie/Project/Programing_Seminar/cmake-build-debug"/>
+				<Option working_dir="/Users/okazaki/Dropbox/Program/Programing_Seminar/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j6 -f &quot;/home/marie/Project/Programing_Seminar/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
-					<CompileFile command="/usr/bin/make -j6 -f &quot;/home/marie/Project/Programing_Seminar/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j6 -f &quot;/home/marie/Project/Programing_Seminar/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j6 -f &quot;/home/marie/Project/Programing_Seminar/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j4 -f &quot;/Users/okazaki/Dropbox/Program/Programing_Seminar/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/okazaki/Dropbox/Program/Programing_Seminar/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/Users/okazaki/Dropbox/Program/Programing_Seminar/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/okazaki/Dropbox/Program/Programing_Seminar/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="rebuild_cache">
-				<Option working_dir="/home/marie/Project/Programing_Seminar/cmake-build-debug"/>
+				<Option working_dir="/Users/okazaki/Dropbox/Program/Programing_Seminar/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j6 -f &quot;/home/marie/Project/Programing_Seminar/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
-					<CompileFile command="/usr/bin/make -j6 -f &quot;/home/marie/Project/Programing_Seminar/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j6 -f &quot;/home/marie/Project/Programing_Seminar/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j6 -f &quot;/home/marie/Project/Programing_Seminar/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j4 -f &quot;/Users/okazaki/Dropbox/Program/Programing_Seminar/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/okazaki/Dropbox/Program/Programing_Seminar/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/Users/okazaki/Dropbox/Program/Programing_Seminar/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/okazaki/Dropbox/Program/Programing_Seminar/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="edit_cache">
-				<Option working_dir="/home/marie/Project/Programing_Seminar/cmake-build-debug"/>
+				<Option working_dir="/Users/okazaki/Dropbox/Program/Programing_Seminar/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j6 -f &quot;/home/marie/Project/Programing_Seminar/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
-					<CompileFile command="/usr/bin/make -j6 -f &quot;/home/marie/Project/Programing_Seminar/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j6 -f &quot;/home/marie/Project/Programing_Seminar/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j6 -f &quot;/home/marie/Project/Programing_Seminar/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j4 -f &quot;/Users/okazaki/Dropbox/Program/Programing_Seminar/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/okazaki/Dropbox/Program/Programing_Seminar/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/Users/okazaki/Dropbox/Program/Programing_Seminar/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/okazaki/Dropbox/Program/Programing_Seminar/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="Programing">
-				<Option output="/home/marie/Project/Programing_Seminar/cmake-build-debug/Programing" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="/home/marie/Project/Programing_Seminar/cmake-build-debug"/>
+				<Option output="/Users/okazaki/Dropbox/Program/Programing_Seminar/cmake-build-debug/Programing" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/okazaki/Dropbox/Program/Programing_Seminar/cmake-build-debug"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
 				<Option compiler="gcc"/>
 				<Compiler>
-					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/9/include"/>
 					<Add directory="/usr/local/include"/>
-					<Add directory="/usr/include/x86_64-linux-gnu"/>
-					<Add directory="/usr/include"/>
+					<Add directory="/Library/Developer/CommandLineTools/usr/lib/clang/10.0.1/include"/>
+					<Add directory="/Library/Developer/CommandLineTools/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j6 -f &quot;/home/marie/Project/Programing_Seminar/cmake-build-debug/Makefile&quot;  VERBOSE=1 Programing"/>
-					<CompileFile command="/usr/bin/make -j6 -f &quot;/home/marie/Project/Programing_Seminar/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j6 -f &quot;/home/marie/Project/Programing_Seminar/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j6 -f &quot;/home/marie/Project/Programing_Seminar/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j4 -f &quot;/Users/okazaki/Dropbox/Program/Programing_Seminar/cmake-build-debug/Makefile&quot;  VERBOSE=1 Programing"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/okazaki/Dropbox/Program/Programing_Seminar/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/Users/okazaki/Dropbox/Program/Programing_Seminar/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/okazaki/Dropbox/Program/Programing_Seminar/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="Programing/fast">
-				<Option output="/home/marie/Project/Programing_Seminar/cmake-build-debug/Programing" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="/home/marie/Project/Programing_Seminar/cmake-build-debug"/>
+				<Option output="/Users/okazaki/Dropbox/Program/Programing_Seminar/cmake-build-debug/Programing" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/okazaki/Dropbox/Program/Programing_Seminar/cmake-build-debug"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
 				<Option compiler="gcc"/>
 				<Compiler>
-					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/9/include"/>
 					<Add directory="/usr/local/include"/>
-					<Add directory="/usr/include/x86_64-linux-gnu"/>
-					<Add directory="/usr/include"/>
+					<Add directory="/Library/Developer/CommandLineTools/usr/lib/clang/10.0.1/include"/>
+					<Add directory="/Library/Developer/CommandLineTools/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j6 -f &quot;/home/marie/Project/Programing_Seminar/cmake-build-debug/Makefile&quot;  VERBOSE=1 Programing/fast"/>
-					<CompileFile command="/usr/bin/make -j6 -f &quot;/home/marie/Project/Programing_Seminar/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j6 -f &quot;/home/marie/Project/Programing_Seminar/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j6 -f &quot;/home/marie/Project/Programing_Seminar/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j4 -f &quot;/Users/okazaki/Dropbox/Program/Programing_Seminar/cmake-build-debug/Makefile&quot;  VERBOSE=1 Programing/fast"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/okazaki/Dropbox/Program/Programing_Seminar/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/Users/okazaki/Dropbox/Program/Programing_Seminar/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/okazaki/Dropbox/Program/Programing_Seminar/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="/home/marie/Project/Programing_Seminar/01/kadai1.c">
+		<Unit filename="/Users/okazaki/Dropbox/Program/Programing_Seminar/01/kadai1.c">
 			<Option target="Programing"/>
 		</Unit>
-		<Unit filename="/home/marie/Project/Programing_Seminar/01/kadai2.c">
+		<Unit filename="/Users/okazaki/Dropbox/Program/Programing_Seminar/01/kadai2.c">
 			<Option target="Programing"/>
 		</Unit>
-		<Unit filename="/home/marie/Project/Programing_Seminar/01/kadai3.c">
+		<Unit filename="/Users/okazaki/Dropbox/Program/Programing_Seminar/01/kadai3.c">
 			<Option target="Programing"/>
 		</Unit>
-		<Unit filename="/home/marie/Project/Programing_Seminar/01/kadai4.c">
+		<Unit filename="/Users/okazaki/Dropbox/Program/Programing_Seminar/01/kadai4.c">
 			<Option target="Programing"/>
 		</Unit>
-		<Unit filename="/home/marie/Project/Programing_Seminar/01/kadai5.c">
+		<Unit filename="/Users/okazaki/Dropbox/Program/Programing_Seminar/01/kadai5.c">
 			<Option target="Programing"/>
 		</Unit>
-		<Unit filename="/home/marie/Project/Programing_Seminar/01/kadai6.c">
+		<Unit filename="/Users/okazaki/Dropbox/Program/Programing_Seminar/01/kadai6.c">
 			<Option target="Programing"/>
 		</Unit>
-		<Unit filename="/home/marie/Project/Programing_Seminar/01/kadai7.c">
+		<Unit filename="/Users/okazaki/Dropbox/Program/Programing_Seminar/01/kadai7.c">
 			<Option target="Programing"/>
 		</Unit>
-		<Unit filename="/home/marie/Project/Programing_Seminar/01/kadai8.c">
+		<Unit filename="/Users/okazaki/Dropbox/Program/Programing_Seminar/01/kadai8.c">
 			<Option target="Programing"/>
 		</Unit>
-		<Unit filename="/home/marie/Project/Programing_Seminar/02/tcp-client.c">
+		<Unit filename="/Users/okazaki/Dropbox/Program/Programing_Seminar/02/tcp-client.c">
 			<Option target="Programing"/>
 		</Unit>
-		<Unit filename="/home/marie/Project/Programing_Seminar/02/tcp-server.c">
+		<Unit filename="/Users/okazaki/Dropbox/Program/Programing_Seminar/02/tcp-server.c">
 			<Option target="Programing"/>
 		</Unit>
-		<Unit filename="/home/marie/Project/Programing_Seminar/pre/kadai1.c">
+		<Unit filename="/Users/okazaki/Dropbox/Program/Programing_Seminar/03/HTTP_09.c">
 			<Option target="Programing"/>
 		</Unit>
-		<Unit filename="/home/marie/Project/Programing_Seminar/pre/kadai2.c">
+		<Unit filename="/Users/okazaki/Dropbox/Program/Programing_Seminar/pre/kadai1.c">
 			<Option target="Programing"/>
 		</Unit>
-		<Unit filename="/home/marie/Project/Programing_Seminar/pre/kadai3.c">
+		<Unit filename="/Users/okazaki/Dropbox/Program/Programing_Seminar/pre/kadai2.c">
 			<Option target="Programing"/>
 		</Unit>
-		<Unit filename="/home/marie/Project/Programing_Seminar/pre/kadai4.c">
+		<Unit filename="/Users/okazaki/Dropbox/Program/Programing_Seminar/pre/kadai3.c">
 			<Option target="Programing"/>
 		</Unit>
-		<Unit filename="/home/marie/Project/Programing_Seminar/pre/kadai5.c">
+		<Unit filename="/Users/okazaki/Dropbox/Program/Programing_Seminar/pre/kadai4.c">
 			<Option target="Programing"/>
 		</Unit>
-		<Unit filename="/home/marie/Project/Programing_Seminar/pre/kadai6.c">
+		<Unit filename="/Users/okazaki/Dropbox/Program/Programing_Seminar/pre/kadai5.c">
 			<Option target="Programing"/>
 		</Unit>
-		<Unit filename="/home/marie/Project/Programing_Seminar/pre/kadai7.c">
+		<Unit filename="/Users/okazaki/Dropbox/Program/Programing_Seminar/pre/kadai6.c">
 			<Option target="Programing"/>
 		</Unit>
-		<Unit filename="/home/marie/Project/Programing_Seminar/pre/kadai8.c">
+		<Unit filename="/Users/okazaki/Dropbox/Program/Programing_Seminar/pre/kadai7.c">
 			<Option target="Programing"/>
 		</Unit>
-		<Unit filename="/home/marie/Project/Programing_Seminar/test.c">
+		<Unit filename="/Users/okazaki/Dropbox/Program/Programing_Seminar/pre/kadai8.c">
 			<Option target="Programing"/>
 		</Unit>
-		<Unit filename="/home/marie/Project/Programing_Seminar/CMakeLists.txt">
+		<Unit filename="/Users/okazaki/Dropbox/Program/Programing_Seminar/test.c">
+			<Option target="Programing"/>
+		</Unit>
+		<Unit filename="/Users/okazaki/Dropbox/Program/Programing_Seminar/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\"/>
 		</Unit>
 	</Project>

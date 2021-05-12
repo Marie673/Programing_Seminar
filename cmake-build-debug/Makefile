@@ -58,19 +58,19 @@ cmake_force:
 SHELL = /bin/sh
 
 # The CMake executable.
-CMAKE_COMMAND = /home/marie/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/211.7142.21/bin/cmake/linux/bin/cmake
+CMAKE_COMMAND = "/Users/okazaki/Library/Application Support/JetBrains/Toolbox/apps/CLion/ch-0/211.7142.21/CLion.app/Contents/bin/cmake/mac/bin/cmake"
 
 # The command to remove a file.
-RM = /home/marie/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/211.7142.21/bin/cmake/linux/bin/cmake -E rm -f
+RM = "/Users/okazaki/Library/Application Support/JetBrains/Toolbox/apps/CLion/ch-0/211.7142.21/CLion.app/Contents/bin/cmake/mac/bin/cmake" -E rm -f
 
 # Escaping for special characters.
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/marie/Project/Programing_Seminar
+CMAKE_SOURCE_DIR = /Users/okazaki/Dropbox/Program/Programing_Seminar
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/marie/Project/Programing_Seminar/cmake-build-debug
+CMAKE_BINARY_DIR = /Users/okazaki/Dropbox/Program/Programing_Seminar/cmake-build-debug
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -78,7 +78,7 @@ CMAKE_BINARY_DIR = /home/marie/Project/Programing_Seminar/cmake-build-debug
 # Special rule for the target rebuild_cache
 rebuild_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
-	/home/marie/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/211.7142.21/bin/cmake/linux/bin/cmake --regenerate-during-build -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+	"/Users/okazaki/Library/Application Support/JetBrains/Toolbox/apps/CLion/ch-0/211.7142.21/CLion.app/Contents/bin/cmake/mac/bin/cmake" --regenerate-during-build -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
 .PHONY : rebuild_cache
 
 # Special rule for the target rebuild_cache
@@ -89,7 +89,7 @@ rebuild_cache/fast: rebuild_cache
 # Special rule for the target edit_cache
 edit_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
-	/home/marie/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/211.7142.21/bin/cmake/linux/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
+	"/Users/okazaki/Library/Application Support/JetBrains/Toolbox/apps/CLion/ch-0/211.7142.21/CLion.app/Contents/bin/cmake/mac/bin/cmake" -E echo No\ interactive\ CMake\ dialog\ available.
 .PHONY : edit_cache
 
 # Special rule for the target edit_cache
@@ -99,9 +99,9 @@ edit_cache/fast: edit_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/marie/Project/Programing_Seminar/cmake-build-debug/CMakeFiles /home/marie/Project/Programing_Seminar/cmake-build-debug//CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/okazaki/Dropbox/Program/Programing_Seminar/cmake-build-debug/CMakeFiles /Users/okazaki/Dropbox/Program/Programing_Seminar/cmake-build-debug//CMakeFiles/progress.marks
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/marie/Project/Programing_Seminar/cmake-build-debug/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/okazaki/Dropbox/Program/Programing_Seminar/cmake-build-debug/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -412,6 +412,33 @@ Programing/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Programing.dir/build.make CMakeFiles/Programing.dir/02/tcp-server.c.s
 .PHONY : 02/tcp-server.c.s
 
+03/HTTP_09.o: 03/HTTP_09.c.o
+
+.PHONY : 03/HTTP_09.o
+
+# target to build an object file
+03/HTTP_09.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Programing.dir/build.make CMakeFiles/Programing.dir/03/HTTP_09.c.o
+.PHONY : 03/HTTP_09.c.o
+
+03/HTTP_09.i: 03/HTTP_09.c.i
+
+.PHONY : 03/HTTP_09.i
+
+# target to preprocess a source file
+03/HTTP_09.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Programing.dir/build.make CMakeFiles/Programing.dir/03/HTTP_09.c.i
+.PHONY : 03/HTTP_09.c.i
+
+03/HTTP_09.s: 03/HTTP_09.c.s
+
+.PHONY : 03/HTTP_09.s
+
+# target to generate assembly for a file
+03/HTTP_09.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Programing.dir/build.make CMakeFiles/Programing.dir/03/HTTP_09.c.s
+.PHONY : 03/HTTP_09.c.s
+
 pre/kadai1.o: pre/kadai1.c.o
 
 .PHONY : pre/kadai1.o
@@ -694,6 +721,9 @@ help:
 	@echo "... 02/tcp-server.o"
 	@echo "... 02/tcp-server.i"
 	@echo "... 02/tcp-server.s"
+	@echo "... 03/HTTP_09.o"
+	@echo "... 03/HTTP_09.i"
+	@echo "... 03/HTTP_09.s"
 	@echo "... pre/kadai1.o"
 	@echo "... pre/kadai1.i"
 	@echo "... pre/kadai1.s"
