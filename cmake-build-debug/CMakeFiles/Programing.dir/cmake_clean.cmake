@@ -10,6 +10,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/Programing.dir/02/tcp-client.c.o"
   "CMakeFiles/Programing.dir/02/tcp-server.c.o"
   "CMakeFiles/Programing.dir/03/HTTP_09.c.o"
+  "CMakeFiles/Programing.dir/03/HTTP_10.c.o"
   "CMakeFiles/Programing.dir/pre/kadai1.c.o"
   "CMakeFiles/Programing.dir/pre/kadai2.c.o"
   "CMakeFiles/Programing.dir/pre/kadai3.c.o"

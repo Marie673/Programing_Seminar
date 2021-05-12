@@ -1,3 +1,7 @@
+//
+// Created by okazaki on 2021/05/12.
+//
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -45,7 +49,7 @@ int main(int argc, char **argv)
         exit(1);
     }
 
-    snprintf(send_buf, sizeof(send_buf),"GET %s \r\n", path);
+    snprintf(send_buf, sizeof(send_buf),"GET %s HTTP/1.0\r\n\r\n", path);
     fprintf(write_fp, "%s", send_buf);
     fflush(write_fp);
 

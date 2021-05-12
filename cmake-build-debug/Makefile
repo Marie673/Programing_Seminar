@@ -439,6 +439,33 @@ Programing/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Programing.dir/build.make CMakeFiles/Programing.dir/03/HTTP_09.c.s
 .PHONY : 03/HTTP_09.c.s
 
+03/HTTP_10.o: 03/HTTP_10.c.o
+
+.PHONY : 03/HTTP_10.o
+
+# target to build an object file
+03/HTTP_10.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Programing.dir/build.make CMakeFiles/Programing.dir/03/HTTP_10.c.o
+.PHONY : 03/HTTP_10.c.o
+
+03/HTTP_10.i: 03/HTTP_10.c.i
+
+.PHONY : 03/HTTP_10.i
+
+# target to preprocess a source file
+03/HTTP_10.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Programing.dir/build.make CMakeFiles/Programing.dir/03/HTTP_10.c.i
+.PHONY : 03/HTTP_10.c.i
+
+03/HTTP_10.s: 03/HTTP_10.c.s
+
+.PHONY : 03/HTTP_10.s
+
+# target to generate assembly for a file
+03/HTTP_10.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Programing.dir/build.make CMakeFiles/Programing.dir/03/HTTP_10.c.s
+.PHONY : 03/HTTP_10.c.s
+
 pre/kadai1.o: pre/kadai1.c.o
 
 .PHONY : pre/kadai1.o
@@ -724,6 +751,9 @@ help:
 	@echo "... 03/HTTP_09.o"
 	@echo "... 03/HTTP_09.i"
 	@echo "... 03/HTTP_09.s"
+	@echo "... 03/HTTP_10.o"
+	@echo "... 03/HTTP_10.i"
+	@echo "... 03/HTTP_10.s"
 	@echo "... pre/kadai1.o"
 	@echo "... pre/kadai1.i"
 	@echo "... pre/kadai1.s"
