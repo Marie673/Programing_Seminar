@@ -15,17 +15,27 @@ int main(int argc, char **argv)
 {
     char *end_buf;
 
-    argc -= optind;
+/*    argc -= optind;
     argv += optind;
     if(argc != 2){
         fprintf(stderr, "missing host and port\n");
         exit(1);
     }
-
     char *host;
     long port;
     host = (--argc, *argv++);
     port = strtol(*argv, &end_buf, 10);
+*/
+    if(argc != 3){
+        fprintf(stderr, "missing host and port\n");
+        exit(1);
+    }
+    char *host;
+    long port;
+    host = *++argv;
+    port = strtol(*++argv, &end_buf, 10);
+    
+
 
     struct sockaddr_in dest;
     int sock;
