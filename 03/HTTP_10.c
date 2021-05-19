@@ -41,13 +41,13 @@ int main(int argc, char **argv)
     server.sin_len = sizeof(server);
     inet_pton(AF_INET, server_ip, &server.sin_addr.s_addr);
 
-    read_fp = fdopen(sock, "r");
-    write_fp = fdopen(sock, "w");
-
     if(connect(sock, (struct sockaddr *) &server, sizeof(server)) != 0){
         perror("connect failed");
         exit(1);
     }
+
+    read_fp = fdopen(sock, "r");
+    write_fp = fdopen(sock, "w");
 
     snprintf(send_buf, sizeof(send_buf),"GET %s HTTP/1.0\r\n\r\n", path);
     fprintf(write_fp, "%s", send_buf);
@@ -82,7 +82,6 @@ int main(int argc, char **argv)
 
     while(fgets(buf, sizeof(buf), read_fp) != NULL){
         if(strcmp(buf, "\r\n") == 0){
-            printf("test");
             break;
         }
     }
