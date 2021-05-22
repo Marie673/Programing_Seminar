@@ -15,26 +15,27 @@ int main(int argc, char **argv)
     char *server_ip;
     int server_port;
     char *path;
+    char *host;
 
     struct sockaddr_in server;
     int sock;
     FILE *read_fp, *write_fp;
 
-    char send_buf[SOCK_BUF_SIZE];
     char *end_ptr;
 
-    if(argc != 4){
+    if(argc != 5){
         fprintf(stderr, "missing option\n");
         exit(1);
     }
     server_ip = *++argv;
     server_port = (int) strtol(*++argv, &end_ptr, 10);
     path = *++argv;
+    host = *++argv;
 
     sock = socket(AF_INET, SOCK_STREAM, 0);
     server.sin_family = AF_INET;
     server.sin_port = htons(server_port);
-    server.sin_len = sizeof(server);
+    // server.sin_len = sizeof(server);
     inet_pton(AF_INET, server_ip, &server.sin_addr.s_addr);
 
     if(connect(sock, (struct sockaddr *) &server, sizeof(server)) != 0){
@@ -45,7 +46,8 @@ int main(int argc, char **argv)
     read_fp = fdopen(sock, "r");
     write_fp = fdopen(sock, "w");
 
-    snprintf(send_buf, sizeof(send_buf),"GET %s HTTP/1.0\r\n\r\n", path);
+    char send_buf[124];
+    snprintf(send_buf, sizeof(send_buf),"GET %s HTTP/1.1\r\nHost: %s\r\n\r\n", path, host);
     fprintf(write_fp, "%s", send_buf);
     fflush(write_fp);
 
@@ -55,17 +57,14 @@ int main(int argc, char **argv)
     strcpy(extension, strtok(NULL, ""));
 
     char file_path[PATH_LEN] = "";
-    strcat(file_path, path_buf);
-    strcat(file_path, ".");
-    strcat(file_path, extension);
+    snprintf(file_path, sizeof(file_path), "%s.%s", path_buf, extension);
 
     struct stat stat_buf;
+    int file_num = 0;
     while(stat(file_path, &stat_buf) == 0){
+        file_num++;
         memset(file_path, 0, sizeof(file_path));
-        strcat(path_buf, "_sub");
-        strcat(file_path, path_buf);
-        strcat(file_path, ".");
-        strcat(file_path, extension);
+        snprintf(file_path, sizeof(file_path), "%s(%d).%s", path_buf, file_num, extension);
         if(strlen(file_path) >= sizeof(file_path)){
             fprintf(stderr, "path name is too long\n");
             exit(1);
@@ -76,16 +75,34 @@ int main(int argc, char **argv)
     save_fp = fopen(file_path, "w");
     char buf[SOCK_BUF_SIZE];
 
+    size_t content_length;
     while(fgets(buf, sizeof(buf), read_fp) != NULL){
-        if(strcmp(buf, "\r\n") == 0){
+        if(strncmp(buf, "Content-Length:", strlen("Content-Length:")) == 0){
+            strtok(buf, ": ");
+            content_length = strtol(strtok(NULL, ""), &end_ptr, 10);
+        }
+        else if(strcmp(buf, "\r\n") == 0){
             break;
         }
     }
 
+    size_t receive_length = 0;
+
     while(1){
+        size_t remaining_bytes;
         memset(buf, 0, sizeof(buf));
         size_t read_size;
-        read_size = fread(buf, sizeof(char), sizeof(buf) / sizeof(char), read_fp);
+        if((remaining_bytes = content_length - receive_length) > sizeof(buf)){
+            read_size = fread(buf, sizeof(char), sizeof(buf) / sizeof(char), read_fp);
+        }
+        else{
+            read_size = fread(buf, sizeof(char), remaining_bytes, read_fp);
+        }
+        receive_length += read_size;
+        if(receive_length >= content_length){
+            break;
+        }
+        printf("read size: %zu\nreceive size: %zu\ncongestion size: %zu\n\n", read_size, receive_length, content_length);
         if(read_size == 0) {
             fclose(save_fp);
             break;
