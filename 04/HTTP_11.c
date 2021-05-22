@@ -87,11 +87,12 @@ int main(int argc, char **argv)
     }
 
     size_t receive_length = 0;
-
     while(1){
-        size_t remaining_bytes;
-        memset(buf, 0, sizeof(buf));
         size_t read_size;
+        size_t remaining_bytes;
+
+        memset(buf, 0, sizeof(buf));
+
         if((remaining_bytes = content_length - receive_length) > sizeof(buf)){
             read_size = fread(buf, sizeof(char), sizeof(buf) / sizeof(char), read_fp);
         }
@@ -99,11 +100,8 @@ int main(int argc, char **argv)
             read_size = fread(buf, sizeof(char), remaining_bytes, read_fp);
         }
         receive_length += read_size;
-        if(receive_length >= content_length){
-            break;
-        }
-        printf("read size: %zu\nreceive size: %zu\ncongestion size: %zu\n\n", read_size, receive_length, content_length);
-        if(read_size == 0) {
+        // printf("read size: %zu\nreceive size: %zu\ncongestion size: %zu\n\n", read_size, receive_length, content_length);
+        if(read_size == 0 || receive_length >= content_length) {
             fclose(save_fp);
             break;
         }
