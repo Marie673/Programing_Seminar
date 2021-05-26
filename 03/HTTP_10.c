@@ -79,13 +79,13 @@ int main(int argc, char **argv)
     FILE *save_fp;
     save_fp = fopen(file_path, "w");
     char buf[SOCK_BUF_SIZE];
-
+/*
     while(fgets(buf, sizeof(buf), read_fp) != NULL){
         if(strcmp(buf, "\r\n") == 0){
             break;
         }
     }
-
+*/
     while(1){
         memset(buf, 0, sizeof(buf));
         size_t read_size;

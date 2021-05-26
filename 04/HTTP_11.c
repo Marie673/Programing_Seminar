@@ -100,12 +100,12 @@ int main(int argc, char **argv)
             read_size = fread(buf, sizeof(char), remaining_bytes, read_fp);
         }
         receive_length += read_size;
+        fwrite(buf, sizeof(char), read_size, save_fp);
         // printf("read size: %zu\nreceive size: %zu\ncongestion size: %zu\n\n", read_size, receive_length, content_length);
         if(read_size == 0 || receive_length >= content_length) {
             fclose(save_fp);
             break;
         }
-        fwrite(buf, sizeof(char), read_size, save_fp);
     }
 
     fclose(write_fp);

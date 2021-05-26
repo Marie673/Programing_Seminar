@@ -34,7 +34,7 @@ int main(int argc, char **argv)
     sock = socket(AF_INET, SOCK_STREAM, 0);
     server.sin_family = AF_INET;
     server.sin_port = htons(server_port);
-    server.sin_len = sizeof(server);
+    //server.sin_len = sizeof(server);
     inet_pton(AF_INET, server_ip, &server.sin_addr.s_addr);
 
     if(connect(sock, (struct sockaddr *) &server, sizeof(server)) != 0){
