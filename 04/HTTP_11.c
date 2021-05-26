@@ -94,7 +94,7 @@ int main(int argc, char **argv)
         memset(buf, 0, sizeof(buf));
 
         if((remaining_bytes = content_length - receive_length) > sizeof(buf)){
-            read_size = fread(buf, sizeof(char), sizeof(buf) / sizeof(char), read_fp);
+            read_size = fread(buf, sizeof(char), sizeof(buf), read_fp);
         }
         else{
             read_size = fread(buf, sizeof(char), remaining_bytes, read_fp);
