@@ -136,6 +136,10 @@ int main(int argc, char **argv) {
         }
     }
 
+    if (path_head == NULL) {
+        path_head = list_add(path_head, "/index.html");
+    }
+
     path = path_head;
     while (path != NULL) {
             char save_file[PATH_LEN];
