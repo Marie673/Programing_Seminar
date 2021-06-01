@@ -182,6 +182,18 @@ int main(int argc, char **argv) {
             HTTP_11_FLAG = 1;
         }
         if(strncmp(PROTOCOL_VERSION, "HTTP/1", strlen("HTTP/1")) == 0) {
+            if (fgets(buf, sizeof(buf), read_fp) != NULL){
+                int num;
+                sscanf(buf, "HTTP/1.1 %d OK", &num);
+                if (num != 200) {
+                    fprintf(stderr, "Could not get Data\n");
+                    exit(1);
+                }
+            }
+            else {
+                fprintf(stderr, "Could not get Data\n");
+                exit(1);
+            }
             while (fgets(buf, sizeof(buf), read_fp) != NULL) {
                 if (HTTP_11_FLAG) {
                     if (strncmp(buf, "Content-Length:", strlen("Content-Length:")) == 0) {
