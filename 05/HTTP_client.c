@@ -10,6 +10,7 @@
 #include <sys/socket.h>
 #include <arpa/inet.h>
 #include <sys/stat.h>
+#include <netdb.h>
 
 #define SOCK_BUF_SIZE 64
 #define PATH_LEN 128
@@ -40,6 +41,39 @@ struct path *list_add (struct path *p, char *path_name) {
         node->next = new;
         return p;
     }
+}
+
+int resolve_dns (char *host_name) {
+    char *service = "http";
+    struct addrinfo hints, *res0, *res;
+    int sock;
+
+    memset(&hints, 0, sizeof(hints));
+    hints.ai_socktype = SOCK_STREAM;
+    hints.ai_family = PF_UNSPEC;
+
+    if ((getaddrinfo(host_name, service, &hints, &res0)) != 0) {
+        perror("get addr info error");
+        exit(1);
+    }
+    for (res = res0; res != NULL; res = res->ai_next) {
+        sock = socket(res->ai_family, res->ai_socktype, res->ai_protocol);
+        if (sock < 0)
+            continue;
+        if(connect(sock, res->ai_addr, res->ai_addrlen) != 0){
+            close(sock);
+            continue;
+        }
+        break;
+    }
+    if (res == NULL) {
+        fprintf(stderr, "DNS search failed\n");
+        exit(1);
+    }
+
+    freeaddrinfo(res0);
+
+    return sock;
 }
 
 static void usage(const char *cmd) {
@@ -138,15 +172,20 @@ int main(int argc, char **argv) {
     int sock;
     FILE *read_fp, *write_fp;
 
-    sock = socket(AF_INET, SOCK_STREAM, 0);
-    server.sin_family = AF_INET;
-    server.sin_port = htons(port);
-    // server.sin_len = sizeof(server);
-    inet_pton(AF_INET, addr, &server.sin_addr.s_addr);
+    if (strncmp(addr, "http://", strlen("http://")) == 0) {
+        sock = resolve_dns(addr += strlen("http://"));
+    }
+    else {
+        sock = socket(AF_INET, SOCK_STREAM, 0);
+        server.sin_family = AF_INET;
+        server.sin_port = htons(port);
+        // server.sin_len = sizeof(server);
+        inet_pton(AF_INET, addr, &server.sin_addr.s_addr);
 
-    if(connect(sock, (struct sockaddr *) &server, sizeof(server)) != 0){
-        perror("connect failed");
-        exit(1);
+        if (connect(sock, (struct sockaddr *) &server, sizeof(server)) != 0) {
+            perror("connect failed");
+            exit(1);
+        }
     }
 
     read_fp = fdopen(sock, "r");
