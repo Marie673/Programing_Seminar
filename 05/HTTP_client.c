@@ -89,6 +89,7 @@ static void usage(const char *cmd) {
             cmd);
 }
 
+
 int main(int argc, char **argv) {
     int ch;
 
