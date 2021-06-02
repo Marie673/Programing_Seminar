@@ -144,22 +144,22 @@ int main(int argc, char **argv) {
 
     path = path_head;
     while (path != NULL) {
-            char save_file[PATH_LEN];
-            char *buf;
-            char file_path[PATH_LEN/2], extension[16];
-            buf = strrchr(path->path_name, '/');
-            sscanf(++buf, "%[^.].%s", file_path, extension);
-            snprintf(save_file, PATH_LEN, "%s.%s", file_path, extension);
+        char save_file[PATH_LEN];
+        char *buf;
+        char file_path[PATH_LEN / 2], extension[16];
+        buf = strrchr(path->path_name, '/');
+        sscanf(++buf, "%[^.].%s", file_path, extension);
+        snprintf(save_file, PATH_LEN, "%s.%s", file_path, extension);
 
-            struct stat stat_buf;
-            int file_num = 0;
-            while (stat(save_file, &stat_buf) == 0) {
-                file_num++;
-                snprintf(save_file, PATH_LEN, "%s(%d).%s", file_path, file_num, extension);
-            }
-            strncpy(path->save_file, save_file, PATH_LEN);
-            path = path->next;
+        struct stat stat_buf;
+        int file_num = 0;
+        while (stat(save_file, &stat_buf) == 0) {
+            file_num++;
+            snprintf(save_file, PATH_LEN, "%s(%d).%s", file_path, file_num, extension);
         }
+        strncpy(path->save_file, save_file, PATH_LEN);
+        path = path->next;
+    }
 
     printf("Server IP Address : %s\n", addr);
     printf("Port : %d\n", port);
@@ -169,10 +169,10 @@ int main(int argc, char **argv) {
     printf("Target path    : %s\n", path->path_name);
     printf("Save file name : %s\n\n", path->save_file);
     while (path->next != NULL) {
-            path = path->next;
-            printf("               : %s\n", path->path_name);
-            printf("               : %s\n\n", path->save_file);
-        }
+        path = path->next;
+        printf("               : %s\n", path->path_name);
+        printf("               : %s\n\n", path->save_file);
+    }
 
     struct sockaddr_in server;
     int sock;
