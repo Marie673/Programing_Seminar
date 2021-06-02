@@ -217,7 +217,6 @@ int main(int argc, char **argv) {
     path = path_head;
     for(i = 0; i < path_num; i++, path = path->next) {
         printf("Getting %s\n", path->path_name);
-
         FILE *save_fp;
         char buf[SOCK_BUF_SIZE];
 
@@ -252,7 +251,6 @@ int main(int argc, char **argv) {
         }
 
         save_fp = fopen(path->save_file, "w");
-
         size_t receive_length = 0;
         while (1) {
             size_t read_size;
