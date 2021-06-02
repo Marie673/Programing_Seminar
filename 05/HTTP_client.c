@@ -91,7 +91,7 @@ static void usage(const char *cmd) {
 
 
 int main(int argc, char **argv) {
-    int ch;
+    int ch, i;
 
     char *addr;
     int port;
@@ -198,7 +198,7 @@ int main(int argc, char **argv) {
 
     char send_buf[124];
     path = path_head;
-    for(int i = 0; i < path_num; i++){
+    for(i = 0; i < path_num; i++){
         if (strncmp(PROTOCOL_VERSION, "HTTP/0.9", strlen(PROTOCOL_VERSION)) == 0) {
             snprintf(send_buf, sizeof(send_buf), "GET %s\r\n\r\n", path->path_name);
         }
@@ -214,7 +214,7 @@ int main(int argc, char **argv) {
     }
 
     path = path_head;
-    for(int i = 0; i < path_num; i++, path = path->next) {
+    for(i = 0; i < path_num; i++, path = path->next) {
         printf("Getting %s\n", path->path_name);
 
         FILE *save_fp;
