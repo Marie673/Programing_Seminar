@@ -139,6 +139,7 @@ int main(int argc, char **argv) {
 
     if (path_head == NULL) {
         path_head = list_add(path_head, "/index.html");
+        path_num++;
     }
 
     path = path_head;
