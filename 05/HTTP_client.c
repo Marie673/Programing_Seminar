@@ -219,7 +219,6 @@ int main(int argc, char **argv) {
         printf("Getting %s\n", path->path_name);
 
         FILE *save_fp;
-        save_fp = fopen(path->save_file, "w");
         char buf[SOCK_BUF_SIZE];
 
         size_t content_length = 0;
@@ -251,6 +250,8 @@ int main(int argc, char **argv) {
                 }
             }
         }
+
+        save_fp = fopen(path->save_file, "w");
 
         size_t receive_length = 0;
         while (1) {
