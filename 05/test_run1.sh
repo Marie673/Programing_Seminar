@@ -1,6 +1,6 @@
 #!/bin/bash
 
-./HTTP_client -p 165.242.111.77 80 > test_result_1.txt
+./HTTP_client 165.242.111.77 80 > test_result_1.txt
 # 2190 index.html
 
 ./HTTP_client -v HTTP/1.0 -p /index.html  165.242.111.77 80 > test_result_2.txt
