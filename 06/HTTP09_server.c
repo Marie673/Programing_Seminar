@@ -50,7 +50,10 @@ void communicate_to_client(int sock) {
         return;
     }
     // show receive message.
-    printf("%s", buf);
+    int i;
+    for (i = 0; i < read_size; ++i) {
+        printf("%c", buf[i]);
+    }
 
     struct request *req = NULL;
     if ((req = parseRequestMessage(buf)) == NULL) {

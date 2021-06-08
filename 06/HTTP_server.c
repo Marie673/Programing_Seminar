@@ -19,16 +19,24 @@
 struct request{
     char method[BUF_SIZE];
     char target[BUF_SIZE];
+    char version[BUF_SIZE];
+    char host[BUF_SIZE];
 };
 
 
 struct request *parseRequestMessage(char *message) {
     struct request *req;
     req = malloc(sizeof(struct request));
+    char *line = NULL;
 
-    strcpy(req->method, strtok(message, " "));
-    strcpy(req->target, strtok(NULL, "\r\n"));
-    // printf("-- method: %s, target: %s --\n", req->method, req->target);
+    line = strtok(message, "\r\n");
+    strncpy(req->version, "HTTP/0.9", strlen("HTTP/0.9"));
+    sscanf(line, "%s %s %s", req->method, req->target, req->version);
+    if (strncmp(req->version, "HTTP/1.1", strlen("HTTP/1.1")) == 0) {
+
+    }
+
+    printf("<-- method: %s, target: %s, version: %s -->\n", req->method, req->target, req->version);
     return req;
 }
 
@@ -50,7 +58,10 @@ void communicate_to_client(int sock) {
         return;
     }
     // show receive message.
-    printf("%s", buf);
+    int i;
+    for (i = 0; i < read_size; ++i) {
+        printf("%c", buf[i]);
+    }
 
     struct request *req = NULL;
     if ((req = parseRequestMessage(buf)) == NULL) {
