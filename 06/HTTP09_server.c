@@ -16,15 +16,15 @@
 
 #define BUF_SIZE 1024
 
-struct request{
+struct REQUEST{
     char method[BUF_SIZE];
     char target[BUF_SIZE];
 };
 
 
-struct request *parseRequestMessage(char *message) {
-    struct request *req;
-    req = malloc(sizeof(struct request));
+struct REQUEST *parseRequestMessage(char *message) {
+    struct REQUEST *req;
+    req = malloc(sizeof(struct REQUEST));
 
     strcpy(req->method, strtok(message, " "));
     strcpy(req->target, strtok(NULL, "\r\n"));
@@ -55,7 +55,7 @@ void communicate_to_client(int sock) {
         printf("%c", buf[i]);
     }
 
-    struct request *req = NULL;
+    struct REQUEST *req = NULL;
     if ((req = parseRequestMessage(buf)) == NULL) {
         printf("parseRequestMessage failed\n");
         return;

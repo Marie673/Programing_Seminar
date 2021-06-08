@@ -81,7 +81,7 @@ static void usage(const char *cmd) {
             "Usage: %s [options] host port\n"
             "\n"
             "Options:\n"
-            "  -p single path            single path to request\n"
+            "  -p single path            single path to REQUEST\n"
             "  -v <protocol version>     the protocol; either \"HTTP/0.9\"\n"
             "                            (default) or \"HTTP/1.0\" or \"HTTP/1.1\"\n"
             "  -h                        print this help\n"

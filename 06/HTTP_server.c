@@ -16,97 +16,162 @@
 
 #define BUF_SIZE 1024
 
-struct request{
+struct REQUEST{
     char method[BUF_SIZE];
     char target[BUF_SIZE];
     char version[BUF_SIZE];
     char host[BUF_SIZE];
 };
 
+struct HEADER{
+    int state;
+    int content_length;
+};
 
-struct request *parseRequestMessage(char *message) {
-    struct request *req;
-    req = malloc(sizeof(struct request));
-    char *line = NULL;
 
-    line = strtok(message, "\r\n");
+struct REQUEST *parseInitialRequest(char *message) {
+    struct REQUEST *req;
+    req = malloc(sizeof(struct REQUEST));
+
     strncpy(req->version, "HTTP/0.9", strlen("HTTP/0.9"));
-    sscanf(line, "%s %s %s", req->method, req->target, req->version);
-    if (strncmp(req->version, "HTTP/1.1", strlen("HTTP/1.1")) == 0) {
-
-    }
+    sscanf(message, "%s %s %s", req->method, req->target, req->version);
 
     printf("<-- method: %s, target: %s, version: %s -->\n", req->method, req->target, req->version);
     return req;
 }
 
-void communicate_to_client(int sock) {
+void getAdditionalRequest(int sock, struct REQUEST *req) {
+    char buf[BUF_SIZE];
+    FILE *read_fp;
+    read_fp = fdopen(sock, "r");
+
+    while (fgets(buf, BUF_SIZE, read_fp) != NULL) {
+        printf("%s", buf);
+        if (buf[0] == '\n') {
+            break;
+        }
+        else if (strncpy(buf, "Host:", strlen("Host:")) == 0) {
+            sscanf(buf, "Host: %s", req->host);
+        }
+    }
+}
+
+struct HEADER *makeHeader(struct REQUEST *req) {
+    struct HEADER *header;
+    header = malloc(sizeof(struct HEADER));
+    struct stat target_stat;
+
+   stat(&(req->target[1]), &target_stat);
+   header->content_length = (int) target_stat.st_size;
+   // その他構造体のHEADERフィールド初期化とか
+
+   return header;
+}
+
+void sendHeader(int sock, struct HEADER *head) {
+    char send_buf[BUF_SIZE];
+    char buf[BUF_SIZE];
+    memset(send_buf, 0, BUF_SIZE);
+
+    switch (head->state) {
+        case 200:
+            strcat(send_buf, "HTTP/1.1 200 OK\n");
+            break;
+        case 400:
+            strcat(send_buf, "HTTP/1.1 400 Bad Request\n");
+            break;
+        default:
+            break;
+    }
+    sprintf(buf, "Content-length: %d\n", head->content_length);
+    strcat(send_buf, buf);
 
     FILE *write_fp;
-    unsigned int read_size;
-    char buf[BUF_SIZE];
+    write_fp = fdopen(sock, "w");
+    fwrite(send_buf, sizeof(char), strlen(send_buf), write_fp);
+    fflush(write_fp);
+}
 
+int getMethod(int sock, struct REQUEST *req){
+    struct HEADER *head;
+    FILE *write_fp;
     write_fp = fdopen(sock, "w");
 
-    read_size = read(sock, buf, sizeof(buf));
-    if (read_size == -1) {
-        printf("read() failed\n");
-        return;
+    if (strcmp(req->target, "/") == 0) {
+        strncpy(req->target, "/index.html", strlen("/index.html"));
     }
-    if (read_size == 0) {
-        printf("connection ended\n");
-        return;
-    }
-    // show receive message.
-    int i;
-    for (i = 0; i < read_size; ++i) {
-        printf("%c", buf[i]);
+    if (strncmp(req->target, "../", strlen("../")) == 0) {
+        char data[BUF_SIZE];
+        sprintf(data, "Access denied\r\n");
+        write(sock, data, strlen(data));
+        return -1;
     }
 
-    struct request *req = NULL;
-    if ((req = parseRequestMessage(buf)) == NULL) {
+    head = makeHeader(req);
+
+    struct stat target_stat;
+    if (stat(&(req->target[1]), &target_stat) == -1) {
+        head->state = 404;
+    }
+    else {
+        head->state = 200;
+        head->content_length = (int) target_stat.st_size;
+    }
+
+    sendHeader(sock, head);
+
+    FILE *target_file;
+    target_file = fopen(&(req->target[1]), "r");
+    int write_size = 0;
+    char data[BUF_SIZE];
+    while (write_size < head->content_length) {
+        int size = (int) fread(data, sizeof(char), sizeof(data), target_file);
+        fwrite(data, sizeof(char), size, write_fp);
+        fflush(write_fp);
+        write_size += size;
+    }
+    fclose(target_file);
+
+    return 0;
+}
+
+int http(int sock) {
+    FILE *read_fp;
+    char buf[BUF_SIZE];
+
+    read_fp = fdopen(sock, "r");
+    if (fgets(buf, BUF_SIZE, read_fp) == NULL) {
+        printf("initial REQUEST failed");
+        return -1;
+    }
+    printf("%s", buf);
+
+    struct REQUEST *req = NULL;
+    if ((req = parseInitialRequest(buf)) == NULL) {
         printf("parseRequestMessage failed\n");
-        return;
+        return -1;
+    }
+    if (strncpy(req->version, "HTTP/1", strlen("HTTP/1")) == 0) {
+        getAdditionalRequest(sock, req);
+    }
+    if (strncpy(req->version, "HTTP/1.1", strlen("HTTP/1.1")) == 0) {
+        if (req->host[0] == '\0') {
+            // Bad request
+        }
     }
 
     if (strncmp(req->method, "GET", strlen(req->method)) == 0) {
-        if (strcmp(req->target, "/") == 0) {
-            strncpy(req->target, "/index.html", strlen("/index.html"));
-        }
-        if (strncmp(req->target, "../", strlen("../")) == 0) {
-            char data[BUF_SIZE];
-            sprintf(data, "Access denied\r\n");
-            fwrite(data, sizeof(char), strlen(data), write_fp);
-            fflush(write_fp);
-            return;
-        }
-
-        FILE *target_file;
-        struct stat target_stat;
-
-        if (stat(&(req->target[1]), &target_stat) == 0) {
-            target_file = fopen(&(req->target[1]), "r");
-            int file_size = (int) target_stat.st_size;
-            int write_size = 0;
-
-            char data[BUF_SIZE];
-            while (write_size < file_size) {
-                int size = (int) fread(data, sizeof(char), sizeof(data), target_file);
-                fwrite(data, sizeof(char), size, write_fp);
-                fflush(write_fp);
-                write_size += size;
-            }
-            fclose(target_file);
-        }
-        else {
-            printf("File is not existing\n");
-            return;
+        if (getMethod(sock, req) == -1) {
+            printf("getMethod() failed\n");
+            return -1;
         }
     }
     else {
         printf("method: %s is not supported", req->method);
+        return -1;
     }
 
+    return 0;
 }
 
 
@@ -159,7 +224,7 @@ int main(int argc, char **argv) {
         }
 
         printf("connected from %s\n", inet_ntoa(clientSockAddr.sin_addr));
-        communicate_to_client(clientSock);
+        http(clientSock);
 
         close(clientSock);
     }
