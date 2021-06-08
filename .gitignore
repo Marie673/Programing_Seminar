@@ -1,4 +1,6 @@
 /cmake-build-debug/
+id_rsa.pub
+toshi.sh
 .exe
 .o
 .out

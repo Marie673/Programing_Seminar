@@ -91,7 +91,7 @@ static void usage(const char *cmd) {
 
 
 int main(int argc, char **argv) {
-    int ch;
+    int ch, i;
 
     char *addr;
     int port;
@@ -139,26 +139,27 @@ int main(int argc, char **argv) {
 
     if (path_head == NULL) {
         path_head = list_add(path_head, "/index.html");
+        path_num++;
     }
 
     path = path_head;
     while (path != NULL) {
-            char save_file[PATH_LEN];
-            char *buf;
-            char file_path[PATH_LEN/2], extension[16];
-            buf = strrchr(path->path_name, '/');
-            sscanf(++buf, "%[^.].%s", file_path, extension);
-            snprintf(save_file, PATH_LEN, "%s.%s", file_path, extension);
+        char save_file[PATH_LEN];
+        char *buf;
+        char file_path[PATH_LEN / 2], extension[16];
+        buf = strrchr(path->path_name, '/');
+        sscanf(++buf, "%[^.].%s", file_path, extension);
+        snprintf(save_file, PATH_LEN, "%s.%s", file_path, extension);
 
-            struct stat stat_buf;
-            int file_num = 0;
-            while (stat(save_file, &stat_buf) == 0) {
-                file_num++;
-                snprintf(save_file, PATH_LEN, "%s(%d).%s", file_path, file_num, extension);
-            }
-            strncpy(path->save_file, save_file, PATH_LEN);
-            path = path->next;
+        struct stat stat_buf;
+        int file_num = 0;
+        while (stat(save_file, &stat_buf) == 0) {
+            file_num++;
+            snprintf(save_file, PATH_LEN, "%s(%d).%s", file_path, file_num, extension);
         }
+        strncpy(path->save_file, save_file, PATH_LEN);
+        path = path->next;
+    }
 
     printf("Server IP Address : %s\n", addr);
     printf("Port : %d\n", port);
@@ -168,10 +169,10 @@ int main(int argc, char **argv) {
     printf("Target path    : %s\n", path->path_name);
     printf("Save file name : %s\n\n", path->save_file);
     while (path->next != NULL) {
-            path = path->next;
-            printf("               : %s\n", path->path_name);
-            printf("               : %s\n\n", path->save_file);
-        }
+        path = path->next;
+        printf("               : %s\n", path->path_name);
+        printf("               : %s\n\n", path->save_file);
+    }
 
     struct sockaddr_in server;
     int sock;
@@ -198,7 +199,7 @@ int main(int argc, char **argv) {
 
     char send_buf[124];
     path = path_head;
-    for(int i = 0; i < path_num; i++){
+    for(i = 0; i < path_num; i++){
         if (strncmp(PROTOCOL_VERSION, "HTTP/0.9", strlen(PROTOCOL_VERSION)) == 0) {
             snprintf(send_buf, sizeof(send_buf), "GET %s\r\n\r\n", path->path_name);
         }
@@ -214,11 +215,9 @@ int main(int argc, char **argv) {
     }
 
     path = path_head;
-    for(int i = 0; i < path_num; i++, path = path->next) {
+    for(i = 0; i < path_num; i++, path = path->next) {
         printf("Getting %s\n", path->path_name);
-
         FILE *save_fp;
-        save_fp = fopen(path->save_file, "w");
         char buf[SOCK_BUF_SIZE];
 
         size_t content_length = 0;
@@ -251,6 +250,7 @@ int main(int argc, char **argv) {
             }
         }
 
+        save_fp = fopen(path->save_file, "w");
         size_t receive_length = 0;
         while (1) {
             size_t read_size;
