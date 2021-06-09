@@ -85,6 +85,7 @@ void sendHeader(int sock, struct HEADER *head) {
     }
     sprintf(buf, "Content-length: %d\n", head->content_length);
     strcat(send_buf, buf);
+    strcat(send_buf, "\r\n");
 
     FILE *write_fp;
     write_fp = fdopen(sock, "w");
