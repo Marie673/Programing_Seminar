@@ -161,6 +161,8 @@ int http(int sock) {
         }
     }
 
+    printf("\n");
+
     if (strncmp(req->method, "GET", strlen(req->method)) == 0) {
         if (getMethod(sock, req) == -1) {
             printf("getMethod() failed\n");
