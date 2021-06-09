@@ -113,6 +113,7 @@ int getMethod(int sock, struct REQUEST *req){
     struct stat target_stat;
     if (stat(&(req->target[1]), &target_stat) == -1) {
         head->state = 404;
+        // req->target をbad request用にする等
     }
     else {
         head->state = 200;
