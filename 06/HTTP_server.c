@@ -75,15 +75,15 @@ void sendHeader(int sock, struct HEADER *head) {
 
     switch (head->state) {
         case 200:
-            strcat(send_buf, "HTTP/1.1 200 OK\n");
+            strcat(send_buf, "HTTP/1.1 200 OK\r\n");
             break;
         case 400:
-            strcat(send_buf, "HTTP/1.1 400 Bad Request\n");
+            strcat(send_buf, "HTTP/1.1 400 Bad Request\r\n");
             break;
         default:
             break;
     }
-    sprintf(buf, "Content-length: %d\n", head->content_length);
+    sprintf(buf, "Content-length: %d\r\n", head->content_length);
     strcat(send_buf, buf);
     strcat(send_buf, "\r\n");
 
