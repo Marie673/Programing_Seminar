@@ -228,7 +228,6 @@ int main(int argc, char **argv) {
             continue;
         }
         else if (pid >= 1) {
-            //close(serverSock);
             http(clientSock);
             close(clientSock);
         }
