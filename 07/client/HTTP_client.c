@@ -2,6 +2,9 @@
 // Created by marie on 2021/05/31.
 //
 
+#include "HTTP_client.h"
+#include "send_request.h"
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -11,18 +14,6 @@
 #include <arpa/inet.h>
 #include <sys/stat.h>
 #include <netdb.h>
-
-#define SOCK_BUF_SIZE 1024
-#define PATH_LEN 128
-
-char *PROTOCOL_VERSION = "HTTP/0.9";
-int IS_HTTP_11 = 0;
-
-struct path{
-    char *path_name;
-    char save_file[PATH_LEN];
-    struct path *next;
-};
 
 struct path *list_add (struct path *p, char *path_name) {
 
