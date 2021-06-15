@@ -32,7 +32,7 @@ struct REQUEST *parseRequestMessage(char *message) {
     return req;
 }
 
-void communicate_to_client(int sock) {
+void http(int sock) {
 
     FILE *write_fp;
     unsigned int read_size;
@@ -151,7 +151,7 @@ int main(int argc, char **argv) {
         }
 
         printf("connected from %s\n", inet_ntoa(clientSockAddr.sin_addr));
-        communicate_to_client(clientSock);
+        http(clientSock);
 
         close(clientSock);
     }
