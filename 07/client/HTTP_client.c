@@ -12,7 +12,7 @@
 #include <sys/stat.h>
 #include <netdb.h>
 
-#define SOCK_BUF_SIZE 64
+#define SOCK_BUF_SIZE 1024
 #define PATH_LEN 128
 
 char *PROTOCOL_VERSION = "HTTP/0.9";
