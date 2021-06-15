@@ -40,10 +40,8 @@ struct REQUEST *parseInitialRequest(char *message) {
     return req;
 }
 
-void getAdditionalRequest(int sock, struct REQUEST *req) {
+void getAdditionalRequest(FILE *read_fp, struct REQUEST *req) {
     char buf[BUF_SIZE];
-    FILE *read_fp;
-    read_fp = fdopen(sock, "r");
 
     while (fgets(buf, BUF_SIZE, read_fp) != NULL) {
         printf("%s", buf);
@@ -68,7 +66,7 @@ struct HEADER *makeHeader(struct REQUEST *req) {
    return header;
 }
 
-void sendHeader(int sock, struct HEADER *head) {
+void sendHeader(FILE *write_fp, struct HEADER *head) {
     char send_buf[BUF_SIZE];
     char buf[BUF_SIZE];
     memset(send_buf, 0, BUF_SIZE);
@@ -86,16 +84,12 @@ void sendHeader(int sock, struct HEADER *head) {
     sprintf(buf, "Content-length: %d\n", head->content_length);
     strcat(send_buf, buf);
 
-    FILE *write_fp;
-    write_fp = fdopen(sock, "w");
     fwrite(send_buf, sizeof(char), strlen(send_buf), write_fp);
     fflush(write_fp);
 }
 
-int getMethod(int sock, struct REQUEST *req){
+int getMethod(FILE *write_fp, struct REQUEST *req){
     struct HEADER *head;
-    FILE *write_fp;
-    write_fp = fdopen(sock, "w");
 
     if (strcmp(req->target, "/") == 0) {
         strncpy(req->target, "/index.html", strlen("/index.html"));
@@ -103,7 +97,8 @@ int getMethod(int sock, struct REQUEST *req){
     if (strncmp(req->target, "../", strlen("../")) == 0) {
         char data[BUF_SIZE];
         sprintf(data, "Access denied\r\n");
-        write(sock, data, strlen(data));
+        fwrite(data, sizeof(char), strlen(data), write_fp);
+        fflush(write_fp);
         return -1;
     }
 
@@ -118,7 +113,7 @@ int getMethod(int sock, struct REQUEST *req){
         head->content_length = (int) target_stat.st_size;
     }
 
-    sendHeader(sock, head);
+    sendHeader(write_fp, head);
 
     FILE *target_file;
     target_file = fopen(&(req->target[1]), "r");
@@ -137,9 +132,11 @@ int getMethod(int sock, struct REQUEST *req){
 
 int http(int sock) {
     FILE *read_fp;
+    FILE *write_fp;
     char buf[BUF_SIZE];
 
     read_fp = fdopen(sock, "r");
+    write_fp = fdopen(sock, "w");
     if (fgets(buf, BUF_SIZE, read_fp) == NULL) {
         printf("initial REQUEST failed");
         return -1;
@@ -152,7 +149,7 @@ int http(int sock) {
         return -1;
     }
     if (strncpy(req->version, "HTTP/1", strlen("HTTP/1")) == 0) {
-        getAdditionalRequest(sock, req);
+        getAdditionalRequest(read_fp, req);
     }
     if (strncpy(req->version, "HTTP/1.1", strlen("HTTP/1.1")) == 0) {
         if (req->host[0] == '\0') {
@@ -161,7 +158,7 @@ int http(int sock) {
     }
 
     if (strncmp(req->method, "GET", strlen(req->method)) == 0) {
-        if (getMethod(sock, req) == -1) {
+        if (getMethod(write_fp, req) == -1) {
             printf("getMethod() failed\n");
             return -1;
         }
@@ -224,9 +221,17 @@ int main(int argc, char **argv) {
         }
 
         printf("connected from %s\n", inet_ntoa(clientSockAddr.sin_addr));
-        http(clientSock);
 
-        close(clientSock);
+        int pid;
+        if ((pid = fork()) == 0) {
+            close(clientSock);
+            continue;
+        }
+        else if (pid >= 1) {
+            //close(serverSock);
+            http(clientSock);
+            close(clientSock);
+        }
     }
 
     close(serverSock);
