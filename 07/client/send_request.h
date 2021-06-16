@@ -6,3 +6,8 @@
 #define PROGRAMING_SEND_REQUEST_H
 
 #endif //PROGRAMING_SEND_REQUEST_H
+
+#include <stdio.h>
+#include "HTTP_client.h"
+
+extern int send_request(FILE *write_fp, struct request *req);

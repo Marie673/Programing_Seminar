@@ -10,19 +10,9 @@
 #define SOCK_BUF_SIZE 1024
 #define PATH_LEN 128
 
-char *PROTOCOL_VERSION = "HTTP/0.9";
-int IS_HTTP_11 = 0;
+extern char *PROTOCOL_VERSION;
+extern int IS_HTTP_11;
 
+struct request;
 
-struct request{
-    char *method;
-    struct path *p_head;
-    char *protocol_version;
-    char *host;
-};
-
-struct path{
-    char *path_name;
-    char save_file[PATH_LEN];
-    struct path *next;
-};
+struct path;

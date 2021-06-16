@@ -8,13 +8,14 @@
 #include <stdio.h>
 #include <string.h>
 
-int send_request(FILE *write_fp, struct path *path_head) {
+
+int send_request(FILE *write_fp, struct request *req) {
     char send_buf[SOCK_BUF_SIZE];
     struct path *path;
 
     int i;
-    path = path_head;
-    for(i = 0; i < path_num; i++){
+    path = req->p_head;
+    for(i = 0; i < req->path_num; i++){
         if (strncmp(PROTOCOL_VERSION, "HTTP/0.9", strlen(PROTOCOL_VERSION)) == 0) {
             snprintf(send_buf, sizeof(send_buf), "GET %s\r\n\r\n", path->path_name);
         }
@@ -22,7 +23,7 @@ int send_request(FILE *write_fp, struct path *path_head) {
             snprintf(send_buf, sizeof(send_buf), "GET %s HTTP/1.0\r\n\r\n", path->path_name);
         }
         else if (strncmp(PROTOCOL_VERSION, "HTTP/1.1", strlen(PROTOCOL_VERSION)) == 0) {
-            snprintf(send_buf, sizeof(send_buf),"GET %s HTTP/1.1\r\nHost: %s\r\n\r\n", path->path_name, host);
+            snprintf(send_buf, sizeof(send_buf),"GET %s HTTP/1.1\r\nHost: %s\r\n\r\n", path->path_name, req->host);
         }
         fprintf(write_fp, "%s", send_buf);
         fflush(write_fp);

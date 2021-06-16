@@ -15,6 +15,23 @@
 #include <sys/stat.h>
 #include <netdb.h>
 
+char *PROTOCOL_VERSION = "HTTP/0.9";
+int IS_HTTP_11 = 0;
+
+struct request{
+    char *method;
+    int path_num;
+    struct path *p_head;
+    char *protocol_version;
+    char *host;
+};
+
+struct path{
+    char *path_name;
+    char save_file[PATH_LEN];
+    struct path *next;
+};
+
 struct path *list_add (struct path *p, char *path_name) {
 
     struct path *new = (struct path *) malloc(sizeof(struct path));
@@ -86,21 +103,22 @@ int main(int argc, char **argv) {
 
     char *addr;
     int port;
-    char *host = NULL;
+    //char *host = NULL;
+    struct request *req;
     struct path *path = NULL;
-    struct path *path_head = NULL;
-    int path_num = 0;
+    req = malloc(sizeof(struct request));
+    req->path_num = 0;
 
     char *end_ptr;
 
     while ((ch = getopt(argc, argv, "p:v:h:")) != -1) {
         switch (ch) {
             case 'h':
-                host = optarg;
+                req->host = optarg;
                 break;
             case 'p':
-                path_head = list_add(path_head, optarg++);
-                path_num++;
+                req->p_head = list_add(req->p_head, optarg++);
+                req->path_num++;
                 break;
             case 'v':
                 PROTOCOL_VERSION = optarg;
@@ -122,18 +140,18 @@ int main(int argc, char **argv) {
     port = (int) strtol(*argv++, &end_ptr, 10);
 
     if (strncmp(PROTOCOL_VERSION, "HTTP/1.1", strlen(PROTOCOL_VERSION)) == 0) {
-        if (host == NULL) {
+        if (req->host == NULL) {
             fprintf(stderr, "HTTP/1.1 need Host\n");
             exit(1);
         }
     }
 
-    if (path_head == NULL) {
-        path_head = list_add(path_head, "/index.html");
-        path_num++;
+    if (req->p_head == NULL) {
+        req->p_head = list_add(req->p_head, "/index.html");
+        req->path_num++;
     }
 
-    path = path_head;
+    path = req->p_head;
     while (path != NULL) {
         char save_file[PATH_LEN];
         char *buf;
@@ -154,9 +172,9 @@ int main(int argc, char **argv) {
 
     printf("Server IP Address : %s\n", addr);
     printf("Port : %d\n", port);
-    printf("Host : %s\n", host);
+    printf("Host : %s\n", req->host);
     printf("Protocol version : %s\n", PROTOCOL_VERSION);
-    path = path_head;
+    path = req->p_head;
     printf("Target path    : %s\n", path->path_name);
     printf("Save file name : %s\n\n", path->save_file);
     while (path->next != NULL) {
@@ -188,25 +206,10 @@ int main(int argc, char **argv) {
     read_fp = fdopen(sock, "r");
     write_fp = fdopen(sock, "w");
 
-    char send_buf[124];
-    path = path_head;
-    for(i = 0; i < path_num; i++){
-        if (strncmp(PROTOCOL_VERSION, "HTTP/0.9", strlen(PROTOCOL_VERSION)) == 0) {
-            snprintf(send_buf, sizeof(send_buf), "GET %s\r\n\r\n", path->path_name);
-        }
-        else if (strncmp(PROTOCOL_VERSION, "HTTP/1.0", strlen(PROTOCOL_VERSION)) == 0) {
-            snprintf(send_buf, sizeof(send_buf), "GET %s HTTP/1.0\r\n\r\n", path->path_name);
-        }
-        else if (strncmp(PROTOCOL_VERSION, "HTTP/1.1", strlen(PROTOCOL_VERSION)) == 0) {
-            snprintf(send_buf, sizeof(send_buf),"GET %s HTTP/1.1\r\nHost: %s\r\n\r\n", path->path_name, host);
-        }
-        fprintf(write_fp, "%s", send_buf);
-        fflush(write_fp);
-        path = path->next;
-    }
+    send_request(write_fp, req);
 
-    path = path_head;
-    for(i = 0; i < path_num; i++, path = path->next) {
+    path = req->p_head;
+    for(i = 0; i < req->path_num; i++, path = path->next) {
         printf("Getting %s\n", path->path_name);
         FILE *save_fp;
         char buf[SOCK_BUF_SIZE];
